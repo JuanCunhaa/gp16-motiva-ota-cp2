@@ -23,6 +23,7 @@ Use um resistor de 220 a 330 ohms em serie com cada cor no circuito fisico. O Wo
 - `.github/workflows/firmware-release.yml`: compila as duas versoes e anexa `firmware_v2.bin` automaticamente quando a Release `v2.0.0` for publicada.
 - `diagram.json`: definicao do circuito equivalente, para consulta ou recuperacao.
 - `partitions.csv`: configura no Wokwi a particao `otadata` e os dois slots OTA exigidos pela gravacao remota.
+- `evidencias/ota_serial_log.txt`: transcricao integral da simulacao validada, da v1 ao teste da histerese na v2.
 
 No Wokwi, a v1 le o manifesto por HTTPS depois de **tres sessoes completas**. Se a versao remota for superior, baixa o binario publicado no GitHub Release, grava no slot OTA e reinicia como v2. O firmware trata Wi-Fi, manifesto, versao atual, download e erros de gravacao no Serial Monitor.
 
@@ -53,6 +54,8 @@ Nao publique a Release antes de colocar os arquivos na `main`. Para uma futura v
 | 6 - Alerta | Mediana >= 16, estado ALERTA, LED vermelho |
 | 7 - Manter | Mediana 15, estado anterior preservado |
 | 8 - Normal | Mediana <= 14, estado NORMAL, LED verde |
+
+Os oito testes acima foram observados na simulacao com a tabela de particoes. O log integral esta em `evidencias/ota_serial_log.txt`: a OTA registra download ate 100%, `SW_CPU_RESET` e cabecalho `FIRMWARE 2.0`. As series controladas `A`, `M` e `N` registram medianas 17, 15 e 13 cm, respectivamente.
 
 As medidas sao pseudoaleatorias por padrao. Para reproduzir os testes da histerese, envie no Serial Monitor da v2 a letra `A` antes da proxima sessao (mediana 17), depois `M` antes da sessao seguinte (mediana 15, permanece em alerta) e `N` antes da proxima (mediana 13, volta a normal). `R` devolve a proxima sessao ao modo aleatorio. O comando afeta apenas a **proxima sessao**; as 5 leituras ainda ocorrem a cada 2 segundos e os inicios permanecem a cada 48 segundos.
 
