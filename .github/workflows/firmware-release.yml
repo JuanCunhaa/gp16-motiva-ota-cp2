@@ -1,0 +1,44 @@
+name: Compilar e publicar firmware OTA
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Instalar core ESP32
+        run: |
+          arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core install esp32:esp32@3.3.12 --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+      - name: Compilar as duas versoes com particionamento OTA
+        run: |
+          arduino-cli compile --fqbn esp32:esp32:esp32:PartitionScheme=default --output-dir build/v1 firmware_v1
+          arduino-cli compile --fqbn esp32:esp32:esp32:PartitionScheme=default --output-dir build/v2 firmware_v2
+          cp build/v2/firmware_v2.ino.bin firmware_v2.bin
+          test -s firmware_v2.bin
+          sha256sum firmware_v2.bin
+      - name: Conferir manifesto e tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          python3 - <<'PY'
+          import json, os
+          manifest = json.load(open('version.json'))
+          tag = os.environ['GITHUB_REF_NAME']
+          assert tag == 'v' + manifest['version'] + '.0', (tag, manifest)
+          assert '/releases/download/' + tag + '/firmware_v2.bin' in manifest['url']
+          print('Manifesto e tag consistentes:', tag)
+          PY
+      - name: Publicar .bin no GitHub Releases
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" firmware_v2.bin --title "Firmware $GITHUB_REF_NAME" --notes "Binario OTA compilado pelo GitHub Actions a partir do codigo versionado."
