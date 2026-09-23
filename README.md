@@ -20,7 +20,7 @@ Use um resistor de 220 a 330 ohms em serie com cada cor no circuito fisico. O Wo
 - `firmware_v1/firmware_v1.ino`: firmware inicial com 5 leituras pseudoaleatorias, media, LED azul, Wi-Fi e cliente OTA.
 - `firmware_v2/firmware_v2.ino`: media, vetor preservado e vetor ordenado, mediana, histerese e LEDs verde/vermelho.
 - `version.json`: manifesto publico lido pela v1. `version=2.0` e URL de download do binario da Release `v2.0.0`.
-- `.github/workflows/firmware-release.yml`: compila as duas versoes e publica `firmware_v2.bin` automaticamente quando a tag `v2.0.0` for enviada.
+- `.github/workflows/firmware-release.yml`: compila as duas versoes e anexa `firmware_v2.bin` automaticamente quando a Release `v2.0.0` for publicada.
 - `diagram.json`: definicao do circuito equivalente, para consulta ou recuperacao.
 
 No Wokwi, a v1 le o manifesto por HTTPS depois de **tres sessoes completas**. Se a versao remota for superior, baixa o binario publicado no GitHub Release, grava no slot OTA e reinicia como v2. O firmware trata Wi-Fi, manifesto, versao atual, download e erros de gravacao no Serial Monitor.
@@ -31,12 +31,12 @@ No Wokwi, a v1 le o manifesto por HTTPS depois de **tres sessoes completas**. Se
 
 O workflow usa `arduino-cli` e o core `esp32:esp32@3.3.12`, placa `esp32:esp32:esp32`, esquema de particao `default` com dois slots OTA. O binario publicado e a **imagem de aplicacao** (`firmware_v2.ino.bin`), renomeada para `firmware_v2.bin`.
 
-1. Depois que o codigo estiver na branch `main`, crie a tag `v2.0.0` no commit atual e publique-a. A tag aciona o workflow.
+1. Depois que o codigo estiver na branch `main`, crie e publique no GitHub uma Release `v2.0.0` com a nova tag `v2.0.0` no commit atual. A publicacao aciona o workflow.
 2. Aguarde o workflow ficar verde e confira em **Releases > v2.0.0** a presenca de `firmware_v2.bin`.
 3. Confira se `version.json` e a URL de download estao publicos antes de iniciar a v1 no Wokwi.
 4. Inicie a simulacao pelo botao Play, abra o Serial Monitor e espere a terceira sessao. Os inicios acontecem em aproximadamente 0, 48 e 96 segundos de tempo de simulacao; as ultimas leituras em 8, 56 e 104 segundos. A consulta OTA comeca ao terminar a terceira sessao.
 
-Nao crie a tag antes de colocar os arquivos na `main`. Para uma futura versao, atualize `FW_VERSION` no codigo, `version.json` e o nome da tag juntos; nao sobrescreva um binario antigo com a mesma versao.
+Nao publique a Release antes de colocar os arquivos na `main`. Para uma futura versao, atualize `FW_VERSION` no codigo, `version.json` e o nome da tag juntos; nao sobrescreva um binario antigo com a mesma versao.
 
 ## Evidencias e testes
 
