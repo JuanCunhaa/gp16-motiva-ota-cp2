@@ -3,20 +3,49 @@
   "author": "GP16 - FIAP",
   "editor": "wokwi",
   "parts": [
-    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
-    { "type": "wokwi-rgb-led", "id": "rgb", "top": -50, "left": 280, "attrs": { "common": "cathode" } },
-    { "type": "wokwi-resistor", "id": "rr", "top": -110, "left": 190, "attrs": { "value": "220" } },
-    { "type": "wokwi-resistor", "id": "rg", "top": -30, "left": 190, "attrs": { "value": "220" } },
-    { "type": "wokwi-resistor", "id": "rb", "top": 50, "left": 190, "attrs": { "value": "220" } }
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 24.04, "attrs": {} },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": 32.8,
+      "left": -162.1,
+      "attrs": { "common": "cathode" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 100.25,
+      "left": -97.4,
+      "rotate": 180,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 109.85,
+      "left": -97.4,
+      "rotate": 180,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 119.45,
+      "left": -97.4,
+      "rotate": 180,
+      "attrs": { "value": "1000" }
+    }
   ],
   "connections": [
-    ["esp:25", "rr:1", "red", []],
-    ["rr:2", "rgb:R", "red", []],
-    ["esp:26", "rg:1", "green", []],
-    ["rg:2", "rgb:G", "green", []],
-    ["esp:27", "rb:1", "blue", []],
-    ["rb:2", "rgb:B", "blue", []],
-    ["rgb:COM", "esp:GND.1", "black", []]
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:25", "r1:1", "red", [ "v0" ] ],
+    [ "esp:26", "r2:1", "green", [ "h0" ] ],
+    [ "esp:27", "r3:1", "blue", [ "h0" ] ],
+    [ "rgb1:R", "r1:2", "red", [ "v0" ] ],
+    [ "rgb1:G", "r2:2", "green", [ "v0" ] ],
+    [ "rgb1:B", "r3:2", "blue", [ "v0" ] ],
+    [ "esp:GND.1", "rgb1:COM", "black", [ "h0" ] ]
   ],
   "dependencies": {}
 }
