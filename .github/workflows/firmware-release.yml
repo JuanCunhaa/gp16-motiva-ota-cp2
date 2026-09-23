@@ -1,9 +1,8 @@
 name: Compilar e publicar firmware OTA
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -27,7 +26,7 @@ jobs:
           test -s firmware_v2.bin
           sha256sum firmware_v2.bin
       - name: Conferir manifesto e tag
-        if: startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'release'
         run: |
           python3 - <<'PY'
           import json, os
@@ -38,7 +37,7 @@ jobs:
           print('Manifesto e tag consistentes:', tag)
           PY
       - name: Publicar .bin no GitHub Releases
-        if: startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" firmware_v2.bin --title "Firmware $GITHUB_REF_NAME" --notes "Binario OTA compilado pelo GitHub Actions a partir do codigo versionado."
+        run: gh release upload "$GITHUB_REF_NAME" firmware_v2.bin --clobber
