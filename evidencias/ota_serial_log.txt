@@ -1,0 +1,153 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+E (780) esp_core_dump_flash: No core dump partition found!
+E (780) esp_core_dump_flash: No core dump partition found!
+
+=== ESP32 MOTIVA | FIRMWARE 1.0 | LED AZUL ===
+
+======== SESSAO 1 | inicio 1591 ms ========
+MONITORAMENTO DE VEGETACAO - FW 1.0
+Leitura 1: 12 cm (t=0 ms)
+Leitura 2: 17 cm (t=2001 ms)
+Leitura 3: 13 cm (t=4001 ms)
+Leitura 4: 10 cm (t=6001 ms)
+Leitura 5: 18 cm (t=8001 ms)
+Media da sessao: 14.0 cm
+Proxima sessao: t=49591 ms (48 s desde o inicio desta).
+
+======== SESSAO 2 | inicio 49593 ms ========
+MONITORAMENTO DE VEGETACAO - FW 1.0
+Leitura 1: 14 cm (t=10 ms)
+Leitura 2: 16 cm (t=2000 ms)
+Leitura 3: 15 cm (t=4000 ms)
+Leitura 4: 16 cm (t=6000 ms)
+Leitura 5: 10 cm (t=8000 ms)
+Media da sessao: 14.2 cm
+Proxima sessao: t=97593 ms (48 s desde o inicio desta).
+
+======== SESSAO 3 | inicio 97594 ms ========
+MONITORAMENTO DE VEGETACAO - FW 1.0
+Leitura 1: 14 cm (t=10 ms)
+Leitura 2: 20 cm (t=2000 ms)
+Leitura 3: 10 cm (t=4000 ms)
+Leitura 4: 12 cm (t=6000 ms)
+Leitura 5: 18 cm (t=8000 ms)
+Media da sessao: 14.8 cm
+Proxima sessao: t=145594 ms (48 s desde o inicio desta).
+[OTA] Tres ciclos completos. Consultando versao remota...
+[WIFI] Conectando a Wokwi-GUEST...
+[WIFI] Conectado. IP: 10.10.0.2
+[OTA] Instalada: 1.0 | Disponivel: 2.0
+[OTA] Baixando firmware de: https://github.com/JuanCunhaa/gp16-motiva-ota-cp2/releases/download/v2.0.0/firmware_v2.bin
+[OTA] Download/gravação: 10%
+[OTA] Download/gravação: 20%
+[OTA] Download/gravação: 31%
+[OTA] Download/gravação: 40%
+[OTA] Download/gravação: 50%
+[OTA] Download/gravação: 61%
+[OTA] Download/gravação: 70%
+[OTA] Download/gravação: 80%
+[OTA] Download/gravação: 90%
+[OTA] Download/gravação: 100%
+[OTA] Firmware gravado. Reiniciando no FW 2.0...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+E (18544) esp_core_dump_flash: No core dump partition found!
+E (18545) esp_core_dump_flash: No core dump partition found!
+
+=== ESP32 MOTIVA | FIRMWARE 2.0 ===
+Estado: NORMAL | LED VERDE
+
+======== SESSAO 1 | inicio 139064 ms ========
+MONITORAMENTO DE VEGETACAO - FW 2.0
+Leitura 1: 11 cm (t=11 ms)
+Leitura 2: 12 cm (t=2001 ms)
+Leitura 3: 15 cm (t=4001 ms)
+Leitura 4: 11 cm (t=6001 ms)
+Leitura 5: 18 cm (t=8001 ms)
+Ordem original: 11, 12, 15, 11, 18 cm
+Ordem crescente: 11, 11, 12, 15, 18 cm
+Media: 13.4 cm | Mediana: 12 cm
+Histerese: mediana <= 14 -> NORMAL.
+Estado: NORMAL | LED VERDE
+Proxima sessao: t=187064 ms (48 s desde o inicio desta).
+[TESTE] Comando A aceito para a PROXIMA sessao.
+
+======== SESSAO 2 | inicio 187069 ms ========
+MONITORAMENTO DE VEGETACAO - FW 2.0
+[TESTE] Serie controlada: A
+Leitura 1: 18 cm (t=10 ms)
+Leitura 2: 16 cm (t=2000 ms)
+Leitura 3: 17 cm (t=4000 ms)
+Leitura 4: 20 cm (t=6000 ms)
+Leitura 5: 15 cm (t=8000 ms)
+Ordem original: 18, 16, 17, 20, 15 cm
+Ordem crescente: 15, 16, 17, 18, 20 cm
+Media: 17.2 cm | Mediana: 17 cm
+Histerese: mediana >= 16 -> ALERTA.
+Estado: ALERTA | LED VERMELHO
+Proxima sessao: t=235069 ms (48 s desde o inicio desta).
+
+======== SESSAO 3 | inicio 235073 ms ========
+MONITORAMENTO DE VEGETACAO - FW 2.0
+Leitura 1: 11 cm (t=10 ms)
+Leitura 2: 17 cm (t=2000 ms)
+Leitura 3: 15 cm (t=4000 ms)
+Leitura 4: 15 cm (t=6000 ms)
+Leitura 5: 13 cm (t=8000 ms)
+Ordem original: 11, 17, 15, 15, 13 cm
+Ordem crescente: 11, 13, 15, 15, 17 cm
+Media: 14.2 cm | Mediana: 15 cm
+Histerese: 14 < mediana < 16 -> mantem estado anterior.
+Estado: ALERTA | LED VERMELHO
+Proxima sessao: t=283073 ms (48 s desde o inicio desta).
+[TESTE] Comando M aceito para a PROXIMA sessao.
+
+======== SESSAO 4 | inicio 283077 ms ========
+MONITORAMENTO DE VEGETACAO - FW 2.0
+[TESTE] Serie controlada: M
+Leitura 1: 13 cm (t=10 ms)
+Leitura 2: 15 cm (t=2000 ms)
+Leitura 3: 15 cm (t=4000 ms)
+Leitura 4: 16 cm (t=6000 ms)
+Leitura 5: 20 cm (t=8000 ms)
+Ordem original: 13, 15, 15, 16, 20 cm
+Ordem crescente: 13, 15, 15, 16, 20 cm
+Media: 15.8 cm | Mediana: 15 cm
+Histerese: 14 < mediana < 16 -> mantem estado anterior.
+Estado: ALERTA | LED VERMELHO
+Proxima sessao: t=331077 ms (48 s desde o inicio desta).
+[TESTE] Comando N aceito para a PROXIMA sessao.
+
+======== SESSAO 5 | inicio 331081 ms ========
+MONITORAMENTO DE VEGETACAO - FW 2.0
+[TESTE] Serie controlada: N
+Leitura 1: 10 cm (t=10 ms)
+Leitura 2: 12 cm (t=2000 ms)
+Leitura 3: 13 cm (t=4000 ms)
+Leitura 4: 14 cm (t=6000 ms)
+Leitura 5: 15 cm (t=8000 ms)
+Ordem original: 10, 12, 13, 14, 15 cm
+Ordem crescente: 10, 12, 13, 14, 15 cm
+Media: 12.8 cm | Mediana: 13 cm
+Histerese: mediana <= 14 -> NORMAL.
+Estado: NORMAL | LED VERDE
+Proxima sessao: t=379081 ms (48 s desde o inicio desta).
