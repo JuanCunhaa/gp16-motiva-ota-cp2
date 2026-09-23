@@ -22,6 +22,7 @@ Use um resistor de 220 a 330 ohms em serie com cada cor no circuito fisico. O Wo
 - `version.json`: manifesto publico lido pela v1. `version=2.0` e URL de download do binario da Release `v2.0.0`.
 - `.github/workflows/firmware-release.yml`: compila as duas versoes e anexa `firmware_v2.bin` automaticamente quando a Release `v2.0.0` for publicada.
 - `diagram.json`: definicao do circuito equivalente, para consulta ou recuperacao.
+- `partitions.csv`: configura no Wokwi a particao `otadata` e os dois slots OTA exigidos pela gravacao remota.
 
 No Wokwi, a v1 le o manifesto por HTTPS depois de **tres sessoes completas**. Se a versao remota for superior, baixa o binario publicado no GitHub Release, grava no slot OTA e reinicia como v2. O firmware trata Wi-Fi, manifesto, versao atual, download e erros de gravacao no Serial Monitor.
 
@@ -30,6 +31,8 @@ No Wokwi, a v1 le o manifesto por HTTPS depois de **tres sessoes completas**. Se
 ## Compilar e publicar
 
 O workflow usa `arduino-cli` e o core `esp32:esp32@3.3.12`, placa `esp32:esp32:esp32`, esquema de particao `default` com dois slots OTA. O binario publicado e a **imagem de aplicacao** (`firmware_v2.ino.bin`), renomeada para `firmware_v2.bin`.
+
+No editor web do Wokwi, mantenha `partitions.csv` junto com `sketch.ino` e `diagram.json`. Sem esta tabela, o simulador pode iniciar com uma particao de aplicativo sem slot OTA, e a atualizacao falha com `Partition Could Not be Found`.
 
 1. Depois que o codigo estiver na branch `main`, crie e publique no GitHub uma Release `v2.0.0` com a nova tag `v2.0.0` no commit atual. A publicacao aciona o workflow.
 2. Aguarde o workflow ficar verde e confira em **Releases > v2.0.0** a presenca de `firmware_v2.bin`.
