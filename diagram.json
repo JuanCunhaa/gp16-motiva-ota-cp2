@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "GP16 - FIAP",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-rgb-led", "id": "rgb", "top": -50, "left": 280, "attrs": { "common": "cathode" } },
+    { "type": "wokwi-resistor", "id": "rr", "top": -110, "left": 190, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "rg", "top": -30, "left": 190, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "rb", "top": 50, "left": 190, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    ["esp:25", "rr:1", "red", []],
+    ["rr:2", "rgb:R", "red", []],
+    ["esp:26", "rg:1", "green", []],
+    ["rg:2", "rgb:G", "green", []],
+    ["esp:27", "rb:1", "blue", []],
+    ["rb:2", "rgb:B", "blue", []],
+    ["rgb:COM", "esp:GND.1", "black", []]
+  ],
+  "dependencies": {}
+}
